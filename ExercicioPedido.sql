@@ -1,0 +1,41 @@
+CREATE DATABASE ExercicioPedido;
+
+CREATE TABLE Cliente(
+    codCli_Cliente INT NOT NULL,
+    nomeClie VARCHAR(100) NOT NULL,
+
+    CONSTRAINT PK_CLIENTE PRIMARY KEY (codCli_Cliente),
+);
+
+CREATE TABLE Pedido(
+    noPed INT NOT NULL,
+    dataPed DATE NOT NULL,
+    codCli_Pedido int NOT NULL,
+
+    CONSTRAINT PK_NOPED PRIMARY KEY(noPed),
+    CONSTRAINT FK_CODCLI_PED FOREIGN KEY(codCli_Pedido) REFERENCES CLIENTE(codCli_Cliente),
+);
+
+CREATE TABLE Pedido_Telefone(
+    noPed_Telefone INT NOT NULL,
+    noTel VARCHAR NOT NULL,
+
+    CONSTRAINT PK_NOPED_TELEFONE PRIMARY KEY(noPed_Telefone),
+);
+
+CREATE TABLE Peca(
+    codPeca INT NOT NULL,
+    descrPeca VARCHAR(100) NOT NULL,
+
+    CONSTRAINT PK_CODPECA PRIMARY KEY(codPeca),
+);
+
+CREATE TABLE Item_Pedido(
+    noPedItemPedido INT NOT NULL,
+    codPecaItemPedido INT NOT NULL,
+    quantPeca INT NOT NULL,
+
+    CONSTRAINT PK_ITEM_PEDIDO PRIMARY KEY(noPedItemPedido, codPecaItemPedido),
+    CONSTRAINT FK_ITEM_PEDIDO FOREIGN KEY(noPedItemPedido) REFERENCES PEDIDO(noPed),
+    CONSTRAINT FK_ITEM_PEDIDOPECA FOREIGN KEY(codPecaItemPedido) REFERENCES PECA(codPeca),
+);
